@@ -9,8 +9,8 @@ class Circle(
 	doc: Document,
 	id: Int,
 	pos: Vector3,
-	var size: Vector2
-): Shape(doc, id, pos) {
+	size: Vector2
+): Shape(doc, id, pos, size) {
 	override val type: String
 		get() = "circle"
 
@@ -18,4 +18,16 @@ class Circle(
 		Pair<String, Serializable>("sx", this.size.x),
 		Pair<String, Serializable>("sy", this.size.y)
 	)
+
+	override fun setMetadata(key: String, value: Any) {
+		if(key == "sx") {
+			if(value is Double) {
+				this.size.x = value
+			}
+		}else if(key == "sy") {
+			if(value is Double) {
+				this.size.y = value
+			}
+		}
+	}
 }

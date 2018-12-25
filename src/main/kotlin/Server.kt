@@ -1,7 +1,11 @@
 package me.onebone.nextslide
 
 import io.vertx.core.AbstractVerticle
+import io.vertx.core.Handler
+import io.vertx.core.http.ServerWebSocket
 import io.vertx.ext.web.Router
+import me.onebone.nextslide.editor.Document
+import me.onebone.nextslide.editor.Session
 
 class Server (private val port: Int): AbstractVerticle() {
 	init {
@@ -10,10 +14,24 @@ class Server (private val port: Int): AbstractVerticle() {
 		}
 	}
 
+	fun getDocument(id: String): Document? {
+		// TODO
+		return Document(this, id, arrayOf())
+	}
+
 	override fun start() {
 		vertx.createHttpServer()
-			.requestHandler(this.createRouter())
-			.listen(this.port)
+			.requestHandler(this@Server.createRouter())
+			.websocketHandler(this.createWebSocketHandler())
+			.listen(this@Server.port)
+	}
+
+	private fun createWebSocketHandler(): Handler<ServerWebSocket> {
+		return Handler { ws ->
+			ws.textMessageHandler {
+				println(it) // TODO!!
+			}
+		}
 	}
 
 	private fun createRouter() = Router.router(this.vertx).apply {

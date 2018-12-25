@@ -5,6 +5,7 @@ import me.onebone.nextslide.editor.shape.Shape
 
 class Document (
 	val server: Server,
+	val id: String,
 	var objs: Array<Shape>
 ){
 	private var objectId = 0

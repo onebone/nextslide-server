@@ -21,6 +21,7 @@ apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
+    maven { url 'https://github.com/keesun/mvn-repo/raw/master' }
 }
 
 dependencies {
