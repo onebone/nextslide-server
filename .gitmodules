@@ -1,0 +1,3 @@
+[submodule "app/editor"]
+	path = app/editor
+	url = https://github.com/onebone/nextslide-editor/
